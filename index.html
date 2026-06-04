@@ -229,5 +229,31 @@
     <footer class="site-footer">
       <p>© 2026 BraveFIT - Todos os direitos reservados.</p>
     </footer>
+
+    <script>
+      const animatedBlocks = document.querySelectorAll(
+        ".benefit-list li, .feature-card, .plan-card, .testimonial-grid blockquote, .contact-card"
+      );
+
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.18 }
+        );
+
+        animatedBlocks.forEach((block, index) => {
+          block.classList.add("reveal");
+          block.style.transitionDelay = `${Math.min(index * 55, 220)}ms`;
+          observer.observe(block);
+        });
+      }
+    </script>
   </body>
 </html>

@@ -28,6 +28,28 @@ body {
   line-height: 1.5;
 }
 
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-breathe {
+  from {
+    transform: scale(1.02);
+  }
+
+  to {
+    transform: scale(1.06);
+  }
+}
+
 body::selection {
   background: var(--accent);
   color: var(--text);
@@ -118,6 +140,10 @@ a {
   transform: translateY(-2px);
 }
 
+.btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
 .btn-primary {
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   box-shadow: 0 14px 34px rgba(255, 61, 31, 0.28);
@@ -160,6 +186,7 @@ a {
   background-position: center right;
   background-size: cover;
   transform: scale(1.02);
+  animation: hero-breathe 14s ease-in-out infinite alternate;
 }
 
 .hero-overlay {
@@ -172,6 +199,26 @@ a {
   position: relative;
   z-index: 1;
   max-width: 1120px;
+}
+
+.hero-content > * {
+  animation: fade-up 0.8s ease both;
+}
+
+.hero-content > *:nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.hero-content > *:nth-child(3) {
+  animation-delay: 0.16s;
+}
+
+.hero-content > *:nth-child(4) {
+  animation-delay: 0.24s;
+}
+
+.hero-content > *:nth-child(5) {
+  animation-delay: 0.32s;
 }
 
 .eyebrow {
@@ -333,6 +380,31 @@ h3 {
   padding: 28px;
 }
 
+.feature-card,
+.plan-card,
+.testimonial-grid blockquote,
+.contact-card,
+.benefit-list li {
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease, opacity 0.5s ease;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.feature-card:hover,
+.plan-card:hover,
+.testimonial-grid blockquote:hover {
+  border-color: rgba(255, 138, 31, 0.4);
+  transform: translateY(-5px);
+}
+
 .icon-tile {
   position: relative;
   width: 66px;
@@ -428,6 +500,18 @@ h3 {
     linear-gradient(180deg, rgba(255, 61, 31, 0.24), rgba(255, 255, 255, 0.055)),
     #151416;
   transform: translateY(-12px);
+}
+
+.plan-featured.reveal {
+  transform: translateY(12px);
+}
+
+.plan-featured.reveal.is-visible {
+  transform: translateY(-12px);
+}
+
+.plan-featured:hover {
+  transform: translateY(-17px);
 }
 
 .plan-badge {
@@ -593,6 +677,12 @@ h3 {
     transform: none;
   }
 
+  .plan-featured.reveal,
+  .plan-featured.reveal.is-visible,
+  .plan-featured:hover {
+    transform: none;
+  }
+
   .cta-content {
     align-items: flex-start;
     flex-direction: column;
@@ -656,5 +746,16 @@ h3 {
 
   .plan-card {
     min-height: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
