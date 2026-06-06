@@ -20,7 +20,6 @@
     <header class="site-header" id="inicio">
       <a class="brand" href="#inicio" aria-label="BraveFIT inicio">
         <span class="brand-mark">BF</span>
-        <span>BraveFIT</span>
       </a>
 
       <nav class="main-nav" aria-label="Menu principal">
@@ -30,8 +29,6 @@
         <a href="#planos">Planos</a>
         <a href="#contato">Contato</a>
       </nav>
-
-      <a class="btn btn-small btn-primary" href="https://wa.me/5541988754132">Fale no WhatsApp</a>
     </header>
 
     <main>
@@ -230,12 +227,48 @@
       <p>© 2026 BraveFIT - Todos os direitos reservados.</p>
     </footer>
 
+    <a
+      class="whatsapp-float"
+      href="https://wa.me/5541988754132"
+      aria-label="Falar com a BraveFIT no WhatsApp"
+    >
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <path
+          d="M16.04 3.2c-7.02 0-12.73 5.68-12.73 12.66 0 2.23.59 4.42 1.7 6.34L3.2 28.8l6.78-1.78a12.77 12.77 0 0 0 6.06 1.54c7.02 0 12.73-5.68 12.73-12.66S23.06 3.2 16.04 3.2Zm0 23.18c-1.92 0-3.79-.52-5.43-1.51l-.39-.23-4.02 1.05 1.07-3.9-.25-.4a10.36 10.36 0 0 1-1.54-5.43c0-5.78 4.74-10.48 10.56-10.48S26.6 10.18 26.6 15.96s-4.74 10.42-10.56 10.42Zm5.79-7.82c-.32-.16-1.88-.92-2.17-1.03-.29-.11-.5-.16-.72.16-.21.32-.83 1.03-1.02 1.24-.19.21-.37.24-.69.08-.32-.16-1.35-.49-2.57-1.57-.95-.84-1.59-1.88-1.78-2.2-.19-.32-.02-.49.14-.65.15-.14.32-.37.48-.56.16-.19.21-.32.32-.53.11-.21.05-.4-.03-.56-.08-.16-.72-1.72-.98-2.36-.26-.62-.52-.54-.72-.55h-.61c-.21 0-.56.08-.85.4-.29.32-1.12 1.09-1.12 2.66 0 1.57 1.15 3.09 1.31 3.3.16.21 2.27 3.44 5.5 4.82.77.33 1.37.53 1.84.68.77.24 1.47.21 2.02.13.62-.09 1.88-.77 2.15-1.51.27-.75.27-1.38.19-1.51-.08-.13-.29-.21-.61-.37Z"
+        />
+      </svg>
+    </a>
+
     <script>
+      const heroTitle = document.querySelector("#hero-title");
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (heroTitle && !reducedMotion) {
+        const titleText = heroTitle.textContent.trim();
+        heroTitle.style.minHeight = `${heroTitle.offsetHeight}px`;
+        heroTitle.textContent = "";
+        heroTitle.classList.add("typing-title");
+
+        let letterIndex = 0;
+        const typeNextLetter = () => {
+          heroTitle.textContent = titleText.slice(0, letterIndex);
+          letterIndex += 1;
+
+          if (letterIndex <= titleText.length) {
+            window.setTimeout(typeNextLetter, 42);
+          } else {
+            window.setTimeout(() => heroTitle.classList.add("is-done"), 900);
+          }
+        };
+
+        window.setTimeout(typeNextLetter, 450);
+      }
+
       const animatedBlocks = document.querySelectorAll(
         ".benefit-list li, .feature-card, .plan-card, .testimonial-grid blockquote, .contact-card"
       );
 
-      if ("IntersectionObserver" in window) {
+      if ("IntersectionObserver" in window && !reducedMotion) {
         const observer = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {
